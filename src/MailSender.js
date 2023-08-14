@@ -1,26 +1,27 @@
 const nodemailer = require('nodemailer');
+const config = require('./utils/config');
 
 class MailSender {
   constructor() {
     this._transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: process.env.SMTP_PORT,
+      host: config.mail.host,
+      port: config.mail.port,
       auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASSWORD,
+        user: config.mail.user,
+        pass: config.mail.password,
       },
     });
   }
 
   sendEmail(targetEmail, content) {
     const message = {
-      from: 'openmusic Apps',
+      from: 'Open Music Apps',
       to: targetEmail,
-      subject: 'Ekspor Playlists',
-      text: 'Terlampir hasil dari ekspor Playlists',
+      subject: 'Export Lagu di Playlist',
+      text: 'Terlampir hasil dari export lagu di playlist',
       attachments: [
         {
-          filename: 'playlists.json',
+          filename: 'playlistsong.json',
           content,
         },
       ],
